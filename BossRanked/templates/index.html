@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<!-- python .\BossRankedApp\manage.py runserver NEED THIS CMD TO RUN WEB SERVER -->
+
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>BossRanked</title>
+
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body style="background-color:blue;">
+<h1 style="text-align:center">BossRanked</h1>
+{% for game in game %}
+<p>{{ game }}<button name="Update">UPDATE</button></p>
+{% endfor %}
+</body>
+</html>
