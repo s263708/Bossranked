@@ -1,3 +1,7 @@
-.h1 {
-    font-size: 1rem;
+h1 {
+    text-align:left;
+}
+
+body {
+    background-color:#AAF;
 }

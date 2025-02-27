@@ -10,10 +10,10 @@
 
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-<body style="background-color:blue;">
-<h1 style="text-align:center">BossRanked</h1>
+<body>
+<h1>BossRanked</h1>
 {% for game in game %}
-<p>{{ game }}<button name="Update">UPDATE</button></p>
+<p>{{ game }}</p>
 {% endfor %}
 </body>
 </html>
