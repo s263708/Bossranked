@@ -3,7 +3,7 @@
 {% load static %}
 <head>
     <meta charset="UTF-8">
-    <title>BossRanked</title>
+    <title>Games - BossRanked</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -38,34 +38,55 @@
         <div class="row">
             <!-- left sidebar -->
             <div class="col-md-3" style="background-color: #333d4c; padding: 10px;">
-                <p></p>
+                <p>Genres</p>
             </div>
 
             <!-- main content area -->
             <div class="col-md-6" style="background-color: #000d4c; padding: 10px;">
-                <h2 class="text-center text-light">Welcome to BossRanked</h2>
-                <p class="text-center text-light">Explore and rank your favorite games!</p>
+                <h2 class="text-center text-light">Browse Games</h2>
+                <p class="text-center text-light">Explore and rank your favorite games here!</p>
+
+                <!-- Debugging: Output all the games context -->
+                <div class="text-center text-light mb-4">
+                    <h4>Games Context:</h4>
+                    <pre>{{ games }}</pre> <!-- This will show the raw data for games -->
+                </div>
+
+                <!-- Debugging: Output number of games -->
+                <div class="text-center text-light mb-4">
+                    <h4>Number of games:</h4>
+                    <p>{{ games|length }}</p> <!-- This will show the number of games -->
+                </div>
+
+                <!-- Debugging: Check if we are looping through games -->
+                <div class="text-center text-light mb-4">
+                    <h4>Is the loop working?</h4>
+                    {% for game in games %}
+                        <p>Loop iteration {{ forloop.counter }}: {{ game.game_name }}</p>
+                    {% endfor %}
+                </div>
 
                 <div class="row justify-content-center">
-                    <!-- browse games section -->
-                    <div class="col-md-5 mb-4">
-                        <div class="card" style="background-color: #333d4c;">
-                            <a href="{% url 'games' %}">
-                                <img src="{% static 'images/elden-ring.jpg' %}" alt="EldenRingImage" class="img-fluid mb-3 same-height"/>
-                            </a>
-                            <a href="{% url 'games' %}" class="btn btn-primary btn-lg w-100">Browse Games</a>
+                    {% for game in games %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card" style="background-color: #333d4c; color: white;">
+                                {% if game.game_picture %}
+                                    <img src="{{ game.game_picture.url }}" alt="{{ game.game_name }}" class="card-img-top img-fluid mb-3 same-height">
+                                {% else %}
+                                    <p>No image available for {{ game.game_name }}</p> <!-- Debugging: If no image -->
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ game.game_name }}</h5>
+                                    <p class="card-text"><strong>Price:</strong> ${{ game.price }}</p>
+                                    <a href="{% url 'game_detail' game.game_ID %}" class="btn btn-outline-light">Details</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- login section -->
-                    <div class="col-md-5 mb-4">
-                        <div class="card" style="background-color: #333d4c;">
-                            <a href="{% url 'login' %}">
-                                <img src="{% static 'images/profile-icon.jpg' %}" alt="ProfileIconImage" class="img-fluid mb-3 same-height"/>
-                            </a>
-                            <a href="{% url 'login' %}" class="btn btn-secondary btn-lg w-100">Login</a>
-                        </div>
-                    </div>
+                        {% if forloop.counter|divisibleby:3 %}
+                            </div><div class="row justify-content-center">
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
 
